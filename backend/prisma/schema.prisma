@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model user {
+  id                    String                  @id @default(uuid()) @db.Uuid
+  name                  String                  @db.VarChar(50)
+  description           String                  @db.VarChar(255)
+  username              String                  @db.VarChar(50)
+  email                 String                  @db.VarChar(255)
+  password              String                  @db.VarChar(255)
+  avatar_photo          String                  @db.VarChar(255)
+  created_at            BigInt                  @default(1681325511718)
+  updated_at            BigInt                  @default(1681325511718)
+  post                  post[]
+  follower_to_following follower_to_following[]
+}
+
+model post {
+  id         String @id @default(uuid()) @db.Uuid
+  title      String @db.VarChar(255)
+  body       String @db.VarChar(255)
+  attachment String @db.VarChar(255)
+  author_id  String @db.Uuid
+  created_at BigInt @default(1681325511718)
+  updated_at BigInt @default(1681325511718)
+  user       user   @relation(fields: [author_id], references: [id])
+}
+
+model follower_to_following {
+  id           String @id @default(uuid()) @db.Uuid
+  follower_id  String @db.Uuid
+  following_id String @db.Uuid
+  user         user   @relation(fields: [follower_id], references: [id])
+}
