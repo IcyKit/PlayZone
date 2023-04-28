@@ -7,34 +7,41 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user {
-  id                    String                  @id @default(uuid()) @db.Uuid
-  name                  String                  @db.VarChar(50)
-  description           String                  @db.VarChar(255)
-  username              String                  @db.VarChar(50)
-  email                 String                  @db.VarChar(255)
-  password              String                  @db.VarChar(255)
-  avatar_photo          String                  @db.VarChar(255)
-  created_at            BigInt                  @default(1681325511718)
-  updated_at            BigInt                  @default(1681325511718)
-  post                  post[]
-  follower_to_following follower_to_following[]
+model User {
+  id                  String                @id @default(uuid()) @db.Uuid
+  name                String                @db.VarChar(50)
+  description         String                @db.VarChar(255)
+  username            String                @db.VarChar(50)
+  email               String                @db.VarChar(255)
+  password            String                @db.VarChar(255)
+  avatarPhoto         String?               @map("avatar_photo") @db.VarChar(255)
+  createdAt           DateTime?             @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt           DateTime?             @default(now()) @map("updated_at") @db.Timestamptz(3)
+  posts               Post[]
+  FollowerToFollowing FollowerToFollowing[]
+
+  @@map("users")
 }
 
-model post {
-  id         String @id @default(uuid()) @db.Uuid
-  title      String @db.VarChar(255)
-  body       String @db.VarChar(255)
-  attachment String @db.VarChar(255)
-  author_id  String @db.Uuid
-  created_at BigInt @default(1681325511718)
-  updated_at BigInt @default(1681325511718)
-  user       user   @relation(fields: [author_id], references: [id])
+model Post {
+  id         String    @id @default(uuid()) @db.Uuid
+  title      String    @db.VarChar(255)
+  body       String    @db.VarChar(255)
+  attachment String?   @db.VarChar(255)
+  authorId   String    @map("author_id") @db.Uuid
+  createdAt  DateTime? @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt  DateTime? @default(now()) @map("updated_at") @db.Timestamptz(3)
+  user       User      @relation(fields: [authorId], references: [id])
+
+  @@map("posts")
 }
 
-model follower_to_following {
-  id           String @id @default(uuid()) @db.Uuid
-  follower_id  String @db.Uuid
-  following_id String @db.Uuid
-  user         user   @relation(fields: [follower_id], references: [id])
+model FollowerToFollowing {
+  id          String    @id @default(uuid()) @db.Uuid
+  followerId  String    @map("follower_id") @db.Uuid
+  followingId String    @map("following_id") @db.Uuid
+  createdAt   DateTime? @default(now()) @map("created_at") @db.Timestamptz(3)
+  user        User      @relation(fields: [followerId], references: [id])
+
+  @@map("follower_to_following")
 }
