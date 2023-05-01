@@ -10,7 +10,7 @@ import {
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import {User} from '@prisma/client'
+import { User } from '@prisma/client';
 
 @Controller('user')
 export class UserController {
@@ -32,7 +32,10 @@ export class UserController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto): Promise<User> {
+  update(
+    @Param('id') id: string,
+    @Body() updateUserDto: UpdateUserDto,
+  ): Promise<User> {
     return this.userService.update(id, updateUserDto);
   }
 

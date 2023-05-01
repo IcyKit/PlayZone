@@ -24,6 +24,17 @@ export class UserService {
     });
   }
 
+  async findByEmail(email: string): Promise<User> {
+    return this.prisma.user.findFirst({
+      where: {
+        email,
+      },
+      include: {
+        posts: true,
+      },
+    });
+  }
+
   //@ts-ignore
   async create(createUserDto: CreateUserDto): Promise<User> {
     const salt = Number(process.env.SALTORROUNDS);
@@ -36,14 +47,18 @@ export class UserService {
     });
   }
 
-  update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+  async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
     const currentDate = new Date().toISOString();
+    const password = updateUserDto.password
+      ? await hash(updateUserDto.password, Number(process.env.SALTORROUNDS))
+      : undefined;
     return this.prisma.user.update({
       where: {
         id,
       },
       data: {
         ...updateUserDto,
+        password,
         updatedAt: currentDate,
       },
     });
