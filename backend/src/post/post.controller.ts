@@ -6,11 +6,13 @@ import {
   Put,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { PostService } from './post.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { Post as PostRec } from '@prisma/client';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 
 @Controller('post')
 export class PostController {
@@ -26,19 +28,22 @@ export class PostController {
     return this.postService.findOne(id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createPostDto: CreatePostDto): Promise<PostRec> {
     return this.postService.create(createPostDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Put(':id')
   update(
     @Param('id') id: string,
-    @Body() updatePostDto: UpdatePostDto,
+    @Body() dto: UpdatePostDto,
   ): Promise<PostRec> {
-    return this.postService.update(id, updatePostDto);
+    return this.postService.update(id, dto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id') id: string): Promise<PostRec> {
     return this.postService.remove(id);

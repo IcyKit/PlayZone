@@ -26,14 +26,14 @@ export class PostService {
     });
   }
 
-  update(id: string, updatePostDto: UpdatePostDto): Promise<Post> {
+  update(id: string, dto: UpdatePostDto): Promise<Post> {
     const currentDate = new Date().toISOString();
     return this.prisma.post.update({
       where: {
         id,
       },
       data: {
-        ...updatePostDto,
+        ...dto,
         updatedAt: currentDate,
       },
     });
