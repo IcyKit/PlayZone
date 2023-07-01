@@ -1,0 +1,13 @@
+@tailwind base;
+@import "./styles/colors";
+
+body {
+  background-color: $main-bg-dark;
+  color: $text-dark;
+}
+
+:root {
+  font-family: "Roboto", sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}

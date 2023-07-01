@@ -1,0 +1,18 @@
+@import "breakpoints";
+
+.container {
+  margin: 0 auto;
+  padding: 0 10px;
+
+  @media (min-width: $sm) {
+    max-width: 600px;
+  }
+
+  @media (min-width: $md) {
+    max-width: 884px;
+  }
+
+  @media (min-width: $lg) {
+    max-width: 1240px;
+  }
+}
