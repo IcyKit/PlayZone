@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                  String                @id @default(uuid()) @db.Uuid
+  name                String                @db.VarChar(50)
+  description         String?               @db.VarChar(255)
+  username            String                @db.VarChar(50)
+  email               String                @unique @db.VarChar(255)
+  password            String                @db.VarChar(255)
+  avatarPhoto         String?               @map("avatar_photo") @db.VarChar(255)
+  createdAt           DateTime?             @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt           DateTime?             @default(now()) @map("updated_at") @db.Timestamptz(3)
+  posts               Post[]
+  FollowerToFollowing FollowerToFollowing[]
+
+  @@map("users")
+}
+
+model Post {
+  id         String    @id @default(uuid()) @db.Uuid
+  title      String    @db.VarChar(255)
+  body       String    @db.VarChar(255)
+  attachment String?   @db.VarChar(255)
+  authorId   String    @map("author_id") @db.Uuid
+  createdAt  DateTime? @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt  DateTime? @default(now()) @map("updated_at") @db.Timestamptz(3)
+  user       User      @relation(fields: [authorId], references: [id])
+
+  @@map("posts")
+}
+
+model FollowerToFollowing {
+  id          String    @id @default(uuid()) @db.Uuid
+  followerId  String    @map("follower_id") @db.Uuid
+  followingId String    @map("following_id") @db.Uuid
+  createdAt   DateTime? @default(now()) @map("created_at") @db.Timestamptz(3)
+  user        User      @relation(fields: [followerId], references: [id])
+
+  @@map("follower_to_following")
+}

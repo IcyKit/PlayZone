@@ -1,0 +1,10 @@
+@import "../../styles/colors";
+
+.logo {
+  fill: $text-dark;
+  cursor: pointer;
+  transition: 0.1s all;
+  &:hover {
+    fill: $text-contrast-dark;
+  }
+}
