@@ -14,3 +14,4 @@ Playzone - площадка для обсуждения игр, кино и IT �
 - Nest.js
 - PostgreSQL
 - Prisma ORM
+- Passport.js
