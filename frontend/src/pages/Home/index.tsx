@@ -5,6 +5,7 @@ const Home = () => {
   return (
     <div className="home">
       <Post />
+      <Post />
     </div>
   );
 };
