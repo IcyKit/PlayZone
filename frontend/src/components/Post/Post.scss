@@ -1,0 +1,92 @@
+@import "../../styles/colors";
+@import "../../styles/breakpoints";
+
+.post {
+  max-width: 640px;
+  background-color: $bg-dark;
+  margin-bottom: 25px;
+  color: $text-dark;
+
+  @media (min-width: $sm) {
+    border-radius: 15px;
+  }
+
+  &-container {
+    width: 100%;
+    padding: 20px 15px;
+
+    @media (min-width: $md) {
+      padding: 20px;
+    }
+  }
+
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+
+    &-left {
+      display: flex;
+      align-items: center;
+    }
+
+    &-avatar {
+      width: 36px;
+      height: 36px;
+      object-fit: cover;
+      border-radius: 100%;
+      margin-right: 10px;
+    }
+
+    &-info {
+      h3 {
+        font-size: 14px;
+        font-weight: 700;
+      }
+      p {
+        font-size: 12px;
+        font-weight: normal;
+      }
+    }
+
+    &-btn {
+      font-size: 12px;
+      background-color: $contrast-dark;
+      padding: 5px 10px;
+      border-radius: 6px;
+    }
+  }
+
+  &-body {
+    h2 {
+      font-size: 22px;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 17px;
+      font-weight: 400;
+    }
+  }
+
+  &-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 180px;
+    padding: 15px;
+
+    svg {
+      margin-right: 5px;
+      fill: $text-dark;
+    }
+
+    &-likes,
+    &-comments,
+    &-bookmarks {
+      display: flex;
+      align-items: center;
+    }
+  }
+}

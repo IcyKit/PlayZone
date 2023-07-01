@@ -11,6 +11,11 @@
     justify-content: space-between;
     align-items: center;
     height: 60px;
+    padding: 0 15px;
+
+    @media (min-width: $md) {
+      padding: 0 10px;
+    }
   }
 
   &-input {
