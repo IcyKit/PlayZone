@@ -3,13 +3,33 @@ import { PrismaService } from 'src/prisma.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { Post } from '@prisma/client';
+import { IPost } from './types/Post';
 
 @Injectable()
 export class PostService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
-  findAll(): Promise<Post[]> {
-    return this.prisma.post.findMany();
+  findAll(): Promise<IPost[]> {
+    //@ts-ignore
+    return this.prisma.post.findMany({
+      select: {
+        id: true,
+        title: true,
+        body: true,
+        attachment: true,
+        createdAt: true,
+        user: {
+          select: {
+            username: true,
+            avatar: true,
+            id: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
   }
 
   findOne(id: string): Promise<Post> {

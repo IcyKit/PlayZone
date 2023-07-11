@@ -1,11 +1,10 @@
-import Post from "../../components/Post";
+import Posts from "../../components/Posts";
 import "./Home.scss";
 
 const Home = () => {
   return (
     <div className="home">
-      <Post />
-      <Post />
+      <Posts />
     </div>
   );
 };
