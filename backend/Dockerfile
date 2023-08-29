@@ -2,14 +2,14 @@ FROM node
 
 WORKDIR /app
 
-COPY package.json /app
+COPY package.json .
 
-RUN npm i -g @nestjs/cli
-
-RUN npm install
+RUN npm install  
 
 COPY . .
 
-VOLUME [ "/app" ]
+RUN npx prisma generate
+
+EXPOSE 4000
 
 CMD ["npm", "run", "start:dev"]

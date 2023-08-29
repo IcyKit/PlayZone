@@ -1,0 +1,30 @@
+version: "3"
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    restart: always
+    container_name: playzone-frontend
+  backend:
+    build: ./backend
+    ports:
+      - "4000:4000"
+    restart: always
+    container_name: playzone-backend
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres
+    ports:
+      - "54321:5432"
+    environment:
+      POSTGRES_USER: icykit
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: playzone
+    container_name: playzone-postgres
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:

@@ -1,10 +1,13 @@
+import * as React from "react";
 import Posts from "../../components/Posts";
-import "./Home.scss";
+import s from "./Home.module.scss";
+import FeedMenu from "../../components/FeedMenu";
 
 const Home = () => {
   return (
-    <div className="home">
+    <div className={s.home}>
       <Posts />
+      <div className={s.temp}></div>
     </div>
   );
 };

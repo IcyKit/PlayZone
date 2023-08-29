@@ -18,7 +18,8 @@
 
   .error {
     border: 1px solid $error-border;
-    &-text {
+
+    &Text {
       font-weight: 300;
       color: $error-text;
       margin-top: -10px;
@@ -26,18 +27,20 @@
     }
   }
 
-  &-heading {
+  .heading {
     margin-bottom: 48px;
     font-size: 22px;
     text-align: center;
   }
-  &-wrapper {
+
+  .wrapper {
     form {
       margin: 0 auto;
       max-width: 320px;
       display: flex;
       flex-direction: column;
       padding: 0 16px;
+
       input {
         background-color: $input-dark;
         font-weight: 300;

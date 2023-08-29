@@ -1,0 +1,16 @@
+@import '../../styles/containers';
+
+.home {
+  display: flex;
+  @media (min-width: $md) {
+    justify-content: space-between;
+  }
+}
+
+.temp {
+  display: none;
+  width: 150px;
+  @media (min-width: $lg) {
+    display: block;
+  }
+}

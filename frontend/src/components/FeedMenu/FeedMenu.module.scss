@@ -1,0 +1,33 @@
+@import "../../styles/colors";
+@import "../../styles/containers";
+
+.menu {
+  display: none;
+  width: 200px;
+
+  .item {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $bg-dark;
+    }
+
+    svg {
+      margin-right: 16px;
+      scale: 1.4;
+    }
+  }
+
+  .active {
+    background-color: $bg-dark;
+  }
+
+  @media (min-width: $md) {
+    display: block;
+  }
+}

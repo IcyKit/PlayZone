@@ -1,11 +1,12 @@
+import * as React from "react";
 import { Formik, Form, Field } from "formik";
-import "./Auth.scss";
+import s from "./Auth.module.scss";
 import { RegisterSchema } from "../../helpers/validationSchemas";
 
-const RegisterPopup = () => {
+const RegisterPopup: React.FC = () => {
   return (
-    <div className="auth">
-      <h2 className="auth-heading">Регистрация</h2>
+    <div className={s.auth}>
+      <h2 className={s.heading}>Регистрация</h2>
       <Formik
         initialValues={{ name: "", nickname: "", email: "", password: "" }}
         onSubmit={(values) => console.log("submit", values)}
@@ -14,45 +15,45 @@ const RegisterPopup = () => {
         validateOnBlur={true}
       >
         {({ errors, touched, isSubmitting }) => (
-          <div className="auth-wrapper">
+          <div className={s.wrapper}>
             <Form>
               <Field
                 name="name"
                 placeholder="Имя"
-                className={`${touched.name && errors.name ? "error" : ""}`}
+                className={`${touched.name && errors.name ? s.error : ""}`}
               />
               {touched.name && errors.name ? (
-                <p className="error-text">{errors.name}</p>
+                <p className={s.errorText}>{errors.name}</p>
               ) : null}
               <Field
                 name="nickname"
                 placeholder="Никнейм"
                 className={`${
-                  touched.nickname && errors.nickname ? "error" : ""
+                  touched.nickname && errors.nickname ? s.error : ""
                 }`}
               />
               {touched.nickname && errors.nickname ? (
-                <p className="error-text">{errors.nickname}</p>
+                <p className={s.errorText}>{errors.nickname}</p>
               ) : null}
               <Field
                 name="email"
                 placeholder="Почта"
                 type="email"
-                className={`${touched.email && errors.email ? "error" : ""}`}
+                className={`${touched.email && errors.email ? s.error : ""}`}
               />
               {touched.email && errors.email ? (
-                <p className="error-text">{errors.email}</p>
+                <p className={s.errorText}>{errors.email}</p>
               ) : null}
               <Field
                 name="password"
                 placeholder="Пароль"
                 type="password"
                 className={`${
-                  touched.password && errors.password ? "error" : ""
+                  touched.password && errors.password ? s.error : ""
                 }`}
               />
               {touched.password && errors.password ? (
-                <p className="error-text">{errors.password}</p>
+                <p className={s.errorText}>{errors.password}</p>
               ) : null}
               <button type="submit" disabled={isSubmitting}>
                 Войти

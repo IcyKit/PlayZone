@@ -1,11 +1,12 @@
+import * as React from "react";
 import { Formik, Field, Form } from "formik";
-import "./Auth.scss";
+import s from "./Auth.module.scss";
 import { LoginSchema } from "../../helpers/validationSchemas";
 
-const LoginPopup = () => {
+const LoginPopup: React.FC = () => {
   return (
-    <div className="auth">
-      <h2 className="auth-heading">Вход в аккаунт</h2>
+    <div className={s.auth}>
+      <h2 className={s.heading}>Вход в аккаунт</h2>
       <Formik
         initialValues={{ email: "", password: "" }}
         onSubmit={(values) => console.log("submit", values)}
@@ -14,27 +15,27 @@ const LoginPopup = () => {
         validateOnBlur
       >
         {({ errors, touched, isSubmitting }) => (
-          <div className="auth-wrapper">
+          <div className={s.wrapper}>
             <Form>
               <Field
                 name="email"
                 placeholder="Почта"
                 type="email"
-                className={`${touched.email && errors.email ? "error" : ""}`}
+                className={`${touched.email && errors.email ? s.error : ""}`}
               />
               {touched.email && errors.email ? (
-                <p className="error-text">{errors.email}</p>
+                <p className={s.errorText}>{errors.email}</p>
               ) : null}
               <Field
                 name="password"
                 placeholder="Пароль"
                 type="password"
                 className={`${
-                  touched.password && errors.password ? "error" : ""
+                  touched.password && errors.password ? s.error : ""
                 }`}
               />
               {touched.password && errors.password ? (
-                <p className="error-text">{errors.password}</p>
+                <p className={s.errorText}>{errors.password}</p>
               ) : null}
               <button type="submit" disabled={isSubmitting}>
                 Войти

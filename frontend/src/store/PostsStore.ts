@@ -3,15 +3,20 @@ import axios from "axios";
 import { IPost } from "../types/Post";
 
 class Posts {
+  isLoading: boolean = true;
   posts: IPost[] = [];
 
   constructor() {
     makeAutoObservable(this);
   }
+
   async fetchPosts() {
-    const { data } = await axios.get("http://localhost:4000/api/post");
-    console.log(data);
-    this.posts = data;
+    this.isLoading = true;
+    try {
+      const { data } = await axios.get("http://localhost:4000/api/post");
+      this.posts = data;
+      this.isLoading = false;
+    } catch (e) {}
   }
 }
 

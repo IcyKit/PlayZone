@@ -1,29 +1,31 @@
+import * as React from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { FaRegComment } from "react-icons/fa";
 import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 import makeCreatedDate from "../../helpers/makeCreatedDate";
+import { Button } from "@nextui-org/react";
 
-import "./Post.scss";
+import s from "./Post.module.scss";
 import { useState } from "react";
 
 interface IPostProps {
   id: string;
-  avatar: string;
+  avatar: string | null;
   username: string;
   title: string;
-  body: string;
-  attachment: string;
-  authorId: string;
+  body: string | null;
+  attachment: string | null;
+  authorId?: string;
   createdAt: Date;
-  updatedAt: Date;
+  updatedAt?: Date;
 }
 
-const Post = ({
-  id,
+const Post: React.FC<IPostProps> = ({
+  // id,
   title,
   body,
   attachment,
-  authorId,
+  // authorId,
   avatar,
   username,
   createdAt,
@@ -32,37 +34,43 @@ const Post = ({
   const [booked, setBooked] = useState<boolean>(false);
 
   return (
-    <div className="post">
-      <div className="post-container">
-        <div className="post-header">
-          <div className="post-header-left">
-            <img className="post-header-avatar" src={avatar} alt="Avatar" />
-            <div className="post-header-info">
+    <div className={s.post}>
+      <div className={s.postContainer}>
+        <div className={s.postHeader}>
+          <div className={s.postHeaderLeft}>
+            <img
+              className={s.postHeaderAvatar}
+              src={avatar ? avatar : ""}
+              alt="Avatar"
+            />
+            <div className={s.postHeaderInfo}>
               <h3>{username}</h3>
               <p>{makeCreatedDate(createdAt)}</p>
             </div>
           </div>
-          <button className="post-header-btn">Подписаться</button>
+          <Button radius={"sm"} size={"sm"} color={"default"}>
+            Подписаться
+          </Button>
         </div>
-        <div className="post-body">
-          <h2 className="post-body-title">{title}</h2>
-          {body && <p className="post-body-text">{body}</p>}
+        <div className={s.postBody}>
+          <h2 className={s.postBodyTitle}>{title}</h2>
+          {body && <p className={s.postBodyText}>{body}</p>}
         </div>
       </div>
       {attachment && (
-        <img className="post-body-img" src={attachment} alt="Post Image" />
+        <img className={s.postBodyImg} src={attachment} alt="Post Image" />
       )}
-      <div className="post-footer">
-        <div className="post-footer-likes" onClick={() => setLiked(!liked)}>
+      <div className={s.postFooter}>
+        <div className={s.postFooterLikes} onClick={() => setLiked(!liked)}>
           {liked ? <AiFillHeart /> : <AiOutlineHeart />}
           <p>23</p>
         </div>
-        <div className="post-footer-comments">
+        <div className={s.postFooterComments}>
           <FaRegComment />
           <p>7</p>
         </div>
         <div
-          className="post-footer-bookmarks"
+          className={s.postFooterBookmarks}
           onClick={() => setBooked(!booked)}
         >
           {booked ? <BsBookmarkFill /> : <BsBookmark />}
