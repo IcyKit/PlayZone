@@ -14,19 +14,29 @@ model User {
   username            String                @db.VarChar(50)
   email               String                @unique @db.VarChar(255)
   password            String                @db.VarChar(255)
-  avatarPhoto         String?               @map("avatar_photo") @db.VarChar(255)
+  avatar              String?               @db.VarChar(255)
   createdAt           DateTime?             @default(now()) @map("created_at") @db.Timestamptz(3)
   updatedAt           DateTime?             @default(now()) @map("updated_at") @db.Timestamptz(3)
   posts               Post[]
   FollowerToFollowing FollowerToFollowing[]
+  auth                Auth[]
 
   @@map("users")
+}
+
+model Auth {
+  id          String @id @default(uuid()) @db.Uuid
+  userId      String @map("user_id") @db.Uuid
+  accessToken String @map("access_token") @db.VarChar(255)
+  user        User   @relation(fields: [userId], references: [id])
+
+  @@map("auth")
 }
 
 model Post {
   id         String    @id @default(uuid()) @db.Uuid
   title      String    @db.VarChar(255)
-  body       String    @db.VarChar(255)
+  body       String?   @db.VarChar(255)
   attachment String?   @db.VarChar(255)
   authorId   String    @map("author_id") @db.Uuid
   createdAt  DateTime? @default(now()) @map("created_at") @db.Timestamptz(3)
@@ -43,5 +53,5 @@ model FollowerToFollowing {
   createdAt   DateTime? @default(now()) @map("created_at") @db.Timestamptz(3)
   user        User      @relation(fields: [followerId], references: [id])
 
-  @@map("follower_to_following")
+  @@map("followers_to_following")
 }

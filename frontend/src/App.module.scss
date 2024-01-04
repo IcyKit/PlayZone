@@ -1,0 +1,10 @@
+@import './styles/containers';
+
+.mainApp {
+  display: flex;
+  padding-top: 15px;
+
+  @media (min-width: $md) {
+    justify-content: space-between;
+  }
+}

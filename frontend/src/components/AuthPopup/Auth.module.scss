@@ -1,0 +1,63 @@
+@import "../../styles/colors";
+@import "../../styles/breakpoints";
+
+.auth {
+  width: 100%;
+  margin: 0 auto;
+  height: 100vh;
+  background-color: $bg-dark;
+  padding: 100px 0px;
+
+  @media (min-width: $sm) {
+    width: 520px;
+    height: 100%;
+    margin-top: 50px;
+    transform: translate(50% -50%);
+    border-radius: 16px;
+  }
+
+  .error {
+    border: 1px solid $error-border;
+
+    &Text {
+      font-weight: 300;
+      color: $error-text;
+      margin-top: -10px;
+      margin-bottom: 10px;
+    }
+  }
+
+  .heading {
+    margin-bottom: 48px;
+    font-size: 22px;
+    text-align: center;
+  }
+
+  .wrapper {
+    form {
+      margin: 0 auto;
+      max-width: 320px;
+      display: flex;
+      flex-direction: column;
+      padding: 0 16px;
+
+      input {
+        background-color: $input-dark;
+        font-weight: 300;
+        color: $text-dark;
+        padding: 0 15px;
+        height: 46px;
+        border-radius: 10px;
+        outline: none;
+        margin-bottom: 16px;
+      }
+
+      button {
+        height: 46px;
+        border-radius: 10px;
+        background-color: $button-blue;
+        margin-bottom: 30px;
+      }
+    }
+  }
+}

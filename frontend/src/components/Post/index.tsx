@@ -1,56 +1,76 @@
+import * as React from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { FaRegComment } from "react-icons/fa";
 import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
+import makeCreatedDate from "../../helpers/makeCreatedDate";
+import { Button } from "@nextui-org/react";
 
-import "./Post.scss";
+import s from "./Post.module.scss";
 import { useState } from "react";
 
-const Post = () => {
+interface IPostProps {
+  id: string;
+  avatar: string | null;
+  username: string;
+  title: string;
+  body: string | null;
+  attachment: string | null;
+  authorId?: string;
+  createdAt: Date;
+  updatedAt?: Date;
+}
+
+const Post: React.FC<IPostProps> = ({
+  // id,
+  title,
+  body,
+  attachment,
+  // authorId,
+  avatar,
+  username,
+  createdAt,
+}: IPostProps) => {
   const [liked, setLiked] = useState<boolean>(false);
   const [booked, setBooked] = useState<boolean>(false);
 
   return (
-    <div className="post">
-      <div className="post-container">
-        <div className="post-header">
-          <div className="post-header-left">
+    <div className={s.post}>
+      <div className={s.postContainer}>
+        <div className={s.postHeader}>
+          <div className={s.postHeaderLeft}>
             <img
-              className="post-header-avatar"
-              src="https://ctv.by/sites/default/files/inarticle/kak_seychas_zhivyot_leonid_kuravlyov_4_15012021.jpg"
+              className={s.postHeaderAvatar}
+              src={avatar ? avatar : ""}
               alt="Avatar"
             />
-            <div className="post-header-info">
-              <h3>Жорж Милославский</h3>
-              <p>08:29</p>
+            <div className={s.postHeaderInfo}>
+              <h3>{username}</h3>
+              <p>{makeCreatedDate(createdAt)}</p>
             </div>
           </div>
-          <button className="post-header-btn">Подписаться</button>
+          <Button radius={"sm"} size={"sm"} color={"default"}>
+            Подписаться
+          </Button>
         </div>
-        <div className="post-body">
-          <h2 className="post-body-title">Про сны</h2>
-          <p className="post-body-text">
-            Проснулся сегодня от сильного наития, что нужно открыть
-            фотокарточки. Открываю, а там на первой же странице это! Приснится
-            же такое...
-          </p>
+        <div className={s.postBody}>
+          <h2 className={s.postBodyTitle}>{title}</h2>
+          {body && <p className={s.postBodyText}>{body}</p>}
         </div>
       </div>
-      <img
-        className="post-body-img"
-        src="https://s.ura.news/760/images/news/upload/news/461/233/1052461233/5d24594ca51c28151d5412829eed7eda_250x0_488.307.0.0.jpg"
-        alt="Post Image"
-      />
-      <div className="post-footer">
-        <div className="post-footer-likes" onClick={() => setLiked(!liked)}>
+      {attachment && (
+        <img className={s.postBodyImg} src={attachment} alt="Post Image" />
+      )}
+      <div className={s.postFooter}>
+        <div className={s.postFooterLikes} onClick={() => setLiked(!liked)}>
           {liked ? <AiFillHeart /> : <AiOutlineHeart />}
           <p>23</p>
         </div>
-        <div className="post-footer-comments">
+        <div className={s.postFooterComments}>
           <FaRegComment />
           <p>7</p>
         </div>
         <div
-          className="post-footer-bookmarks"
+          className={s.postFooterBookmarks}
           onClick={() => setBooked(!booked)}
         >
           {booked ? <BsBookmarkFill /> : <BsBookmark />}

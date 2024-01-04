@@ -1,10 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from '@prisma/client';
 import { hash } from 'bcrypt';
-import * as process from 'process';
 import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class UserService {
